@@ -2,6 +2,14 @@ import React from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 
 class Cadastro extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: '',
+    };
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -11,7 +19,14 @@ class Cadastro extends React.Component {
 
         <View style={styles.inputContainer}>
           <Text style={styles.inputText}>Email</Text>
-          <TextInput style={styles.textInput} underlineColorAndroid="rgba(0, 0, 0, 0)"/>
+          <TextInput
+            style={styles.textInput}
+            underlineColorAndroid="rgba(0, 0, 0, 0)"
+            value={this.state.email}
+            onChangeText={(text) => this.setState({ email: text })}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
         </View>
       </View>
     );
