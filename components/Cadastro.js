@@ -28,6 +28,17 @@ class Cadastro extends React.Component {
             autoCorrect={false}
           />
         </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputText}>Senha</Text>
+          <TextInput
+            style={styles.textInput}
+            underlineColorAndroid="rgba(0, 0, 0, 0)"
+            autoCapitalize="none"
+            autoCorrect={false}
+            secureTextEntry
+          />
+        </View>
       </View>
     );
   }
