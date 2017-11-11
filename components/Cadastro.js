@@ -7,6 +7,7 @@ class Cadastro extends React.Component {
 
     this.state = {
       email: '',
+      senha: '',
     };
   }
 
@@ -37,6 +38,8 @@ class Cadastro extends React.Component {
             autoCapitalize="none"
             autoCorrect={false}
             secureTextEntry
+            value={this.state.senha}
+            onChangeText={(text) => this.setState({ senha: text })}
           />
         </View>
       </View>
