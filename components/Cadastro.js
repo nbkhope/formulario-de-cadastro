@@ -9,17 +9,41 @@ class Cadastro extends React.Component {
       email: '',
       senha: '',
       mensagem: null,
+      erros: [],
     };
 
     this.onCadastrarPress = this.onCadastrarPress.bind(this);
   }
 
   onCadastrarPress() {
+    const erros = [];
+    if (!this.state.email) {
+      erros.push('O email não pode ficar em branco');
+    }
+    if (!this.state.senha) {
+      erros.push('A senha não pode ficar em branco');
+    }
+    if (erros.length > 0) {
+      this.setState({ erros });
+      return;
+    }
+
     this.setState({
       mensagem: 'Muito obrigado por se cadastrar! Verique o seu email para os próximos passos',
       email: '',
       senha: '',
     });
+  }
+
+  renderErros() {
+    if (this.state.erros.length > 0) {
+      return (
+        <View>
+          <Text>O seu cadastro falhou:</Text>
+          {this.state.erros.map(erro => <Text>{erro}</Text>)}
+        </View>
+      );
+    }
   }
 
   renderMensagem() {
@@ -71,6 +95,7 @@ class Cadastro extends React.Component {
           </View>
         </View>
 
+        {this.renderErros()}
         {this.renderMensagem()}
       </View>
     );
