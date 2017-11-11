@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import validator from 'validator';
 
 class Cadastro extends React.Component {
   constructor(props) {
@@ -15,14 +16,25 @@ class Cadastro extends React.Component {
     this.onCadastrarPress = this.onCadastrarPress.bind(this);
   }
 
-  onCadastrarPress() {
+  validarFormulario() {
     const erros = [];
+
     if (!this.state.email) {
       erros.push('O email não pode ficar em branco');
+    }
+    if (!validator.isEmail(this.state.email)) {
+      erros.push('O formato do email está inválido');
     }
     if (!this.state.senha) {
       erros.push('A senha não pode ficar em branco');
     }
+
+    return erros;
+  }
+
+  onCadastrarPress() {
+    const erros = this.validarFormulario();
+
     if (erros.length > 0) {
       this.setState({ erros });
       return;
@@ -37,10 +49,14 @@ class Cadastro extends React.Component {
 
   renderErros() {
     if (this.state.erros.length > 0) {
+      const listaDeErros = this.state.erros.map((erro, index) =>
+        <Text key={index} style={{ color: 'red', fontSize: 18 }}>* {erro}</Text>
+      );
+
       return (
-        <View>
-          <Text>O seu cadastro falhou:</Text>
-          {this.state.erros.map(erro => <Text>{erro}</Text>)}
+        <View style={{ alignItems: 'center' }}>
+          <Text style={{ color: 'red', fontSize: 18 }}>O seu cadastro falhou:</Text>
+          {listaDeErros}
         </View>
       );
     }
