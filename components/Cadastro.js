@@ -28,22 +28,27 @@ class Cadastro extends React.Component {
     if (!this.state.senha) {
       erros.push('A senha não pode ficar em branco');
     }
+    if (this.state.senha.length < 6) {
+      erros.push('A senha deve ter no mínimo 6 caracteres');
+    }
 
     return erros;
   }
 
   onCadastrarPress() {
-    const erros = this.validarFormulario();
+    this.setState({ mensagem: '', erros: [] }, () => {
+      const erros = this.validarFormulario();
 
-    if (erros.length > 0) {
-      this.setState({ erros });
-      return;
-    }
+      if (erros.length > 0) {
+        this.setState({ erros });
+        return;
+      }
 
-    this.setState({
-      mensagem: 'Muito obrigado por se cadastrar! Verique o seu email para os próximos passos',
-      email: '',
-      senha: '',
+      this.setState({
+        mensagem: 'Muito obrigado por se cadastrar! Verique o seu email para os próximos passos',
+        email: '',
+        senha: '',
+      });
     });
   }
 
@@ -100,6 +105,7 @@ class Cadastro extends React.Component {
               secureTextEntry
               value={this.state.senha}
               onChangeText={(text) => this.setState({ senha: text })}
+              maxLength={15}
             />
           </View>
 
