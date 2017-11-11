@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 
 class Cadastro extends React.Component {
   constructor(props) {
@@ -8,40 +8,70 @@ class Cadastro extends React.Component {
     this.state = {
       email: '',
       senha: '',
+      mensagem: null,
     };
+
+    this.onCadastrarPress = this.onCadastrarPress.bind(this);
+  }
+
+  onCadastrarPress() {
+    this.setState({
+      mensagem: 'Muito obrigado por se cadastrar! Verique o seu email para os próximos passos',
+      email: '',
+      senha: '',
+    });
+  }
+
+  renderMensagem() {
+    if (this.state.mensagem) {
+      return (
+        <Text style={{ alignSelf: 'center', color: 'green', fontSize: 18 }}>{this.state.mensagem}</Text>
+      );
+    }
   }
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.titleText}>Nova Conta</Text>
+      <View style={{ flex: 1, justifyContent: 'space-between' }}>
+        <View>
+          <View style={styles.titleContainer}>
+            <Text style={styles.titleText}>Nova Conta</Text>
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputText}>Email</Text>
+            <TextInput
+              style={styles.textInput}
+              underlineColorAndroid="rgba(0, 0, 0, 0)"
+              value={this.state.email}
+              onChangeText={(text) => this.setState({ email: text })}
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputText}>Senha</Text>
+            <TextInput
+              style={styles.textInput}
+              underlineColorAndroid="rgba(0, 0, 0, 0)"
+              autoCapitalize="none"
+              autoCorrect={false}
+              secureTextEntry
+              value={this.state.senha}
+              onChangeText={(text) => this.setState({ senha: text })}
+            />
+          </View>
+
+          <View style={{ padding: 8 }}>
+            <Button
+              title="Cadastrar"
+              onPress={this.onCadastrarPress}
+            />
+          </View>
         </View>
 
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputText}>Email</Text>
-          <TextInput
-            style={styles.textInput}
-            underlineColorAndroid="rgba(0, 0, 0, 0)"
-            value={this.state.email}
-            onChangeText={(text) => this.setState({ email: text })}
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputText}>Senha</Text>
-          <TextInput
-            style={styles.textInput}
-            underlineColorAndroid="rgba(0, 0, 0, 0)"
-            autoCapitalize="none"
-            autoCorrect={false}
-            secureTextEntry
-            value={this.state.senha}
-            onChangeText={(text) => this.setState({ senha: text })}
-          />
-        </View>
+        {this.renderMensagem()}
       </View>
     );
   }
