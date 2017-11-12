@@ -44,11 +44,30 @@ class Cadastro extends React.Component {
         return;
       }
 
-      this.setState({
-        mensagem: 'Muito obrigado por se cadastrar! Verique o seu email para os próximos passos',
-        email: '',
-        senha: '',
-      });
+      fetch('http://localhost:3000/usuarios', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: this.state.email,
+          senha: this.state.senha,
+        }),
+      })
+        .then(response => response.json())
+        .then(responseJson => {
+          this.setState({
+            mensagem: 'Muito obrigado por se cadastrar! Verique o seu email para os próximos passos',
+            email: '',
+            senha: '',
+          });
+        })
+        .catch(error => {
+          this.setState({
+            erros: [error.message]
+          });
+        });
     });
   }
 
