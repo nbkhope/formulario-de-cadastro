@@ -1,6 +1,6 @@
 # Projeto 3: Formulário de Cadastro
 
-Este projeto é parte do curso **Aplicativos Móveis com o React Native**, criado por @nbkhope.
+Este projeto é parte do curso **Aplicativos Móveis com o React Native**, criado por Renan Martins (@nbkhope).
 
 ## Screenshots
 
